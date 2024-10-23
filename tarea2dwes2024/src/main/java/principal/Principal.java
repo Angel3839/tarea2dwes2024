@@ -1,4 +1,4 @@
-package tarea2dwes2024;
+package principal;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
