@@ -53,9 +53,17 @@ public class Principal {
 			
 			String sql = "INSERT INTO plantas(codigo, nombrecomun, nombrecientifico) VALUES ('"+nueva.getCodigo()+"' , '"+nueva.getNombrecomun()+"', '"+nueva.getNombrecientifico()+"')";
 			
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.execute();
+			String sql2 = "INSERT INTO plantas(codigo, nombrecomun, nombrecientifico) VALUES(?,?,?)";
+
 			
+			PreparedStatement ps = con.prepareStatement(sql2);
+			ps.setString(1, nueva.getCodigo());
+			ps.setString(2, nueva.getNombrecomun());
+			ps.setString(3, nueva.getNombrecientifico());
+			
+			
+			ps.executeUpdate();
+			ps.execute();
 			con.close();
 			
 		} catch (SQLException e) {
