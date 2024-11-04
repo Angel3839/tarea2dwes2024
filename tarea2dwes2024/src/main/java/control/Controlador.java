@@ -25,4 +25,8 @@ public class Controlador {
 	public ServiciosPlanta getServiciosPlanta() {
 		return servPlanta;
 	}
+	
+	public ServiciosEjemplar getServiciosEjemplar() {
+		return serEj;
+	}
 }
