@@ -2,9 +2,9 @@ package control;
 
 import java.util.Collection;
 
-import dao.ConexionBD;
 import dao.PlantaDAO;
 import modelo.Planta;
+import utils.ConexionBD;
 
 public class ServiciosPlanta {
 

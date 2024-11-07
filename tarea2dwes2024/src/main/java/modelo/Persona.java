@@ -45,5 +45,4 @@ public class Persona {
 	}
 	
 	
-	//Añadir en la base de datos id=0 nombre=admin email=admin@vivero.es
 }

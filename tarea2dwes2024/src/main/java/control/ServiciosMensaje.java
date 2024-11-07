@@ -1,12 +1,11 @@
 package control;
 
+
 import java.util.Collection;
 
 import dao.MensajeDAO;
-import dao.PersonaDAO;
 import modelo.Mensaje;
-import modelo.Persona;
-import dao.ConexionBD;
+import utils.ConexionBD;
 
 	public class ServiciosMensaje {
 		private ConexionBD con;

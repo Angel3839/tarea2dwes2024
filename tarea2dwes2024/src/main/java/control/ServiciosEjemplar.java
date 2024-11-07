@@ -3,10 +3,8 @@ package control;
 import java.util.Collection;
 
 import dao.EjemplarDAO;
-import dao.PlantaDAO;
 import modelo.Ejemplar;
-import modelo.Planta;
-import dao.ConexionBD;
+import utils.ConexionBD;
 
 	public class ServiciosEjemplar {
 		private ConexionBD con;

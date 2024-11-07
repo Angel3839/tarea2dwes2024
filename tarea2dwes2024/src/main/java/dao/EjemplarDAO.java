@@ -6,10 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 import modelo.Ejemplar;
-import modelo.Planta;
 import utils.ConexionBD;
 
 	public class EjemplarDAO implements OperacionesCRUD<Ejemplar> {
@@ -40,31 +38,6 @@ import utils.ConexionBD;
 		}
 
 
-		@Override
-		public Ejemplar buscarPorID(long id) {
-			String consulta = "SELECT * FROM ejemplares WHERE id = ?";
-		    Ejemplar ejemplar = null;
-		    try {
-		        PreparedStatement pstmt = conex.prepareStatement(consulta);
-		        pstmt.setLong(1, id); 
-		        ResultSet result = pstmt.executeQuery();
-		        while(result.next()) {
-		        	long idEjemplar = result.getLong("id");
-		            String nombre = result.getString("nombre");
-		            String codigoPlanta = result.getString("id_planta");
-		            ejemplar = new Ejemplar(idEjemplar, nombre, codigoPlanta);
-		        }
-		    } catch (SQLException e) {
-		        System.out.println("Se ha producido una SQLException: " + e.getMessage());
-		        e.printStackTrace();
-		    } catch (Exception e) {
-		        System.out.println("Se ha producido una Exception: " + e.getMessage());
-		        e.printStackTrace();
-		    }
-		    
-			return ejemplar; 
-		}
-
 
 		@Override
 		public Collection<Ejemplar> verTodos() {
@@ -77,7 +50,10 @@ import utils.ConexionBD;
 		        PreparedStatement ps = conex.prepareStatement(consulta);
 		        ResultSet resultado = ps.executeQuery();
 		        while (resultado.next()) {
-		            Ejemplar ejemplar = new Ejemplar(resultado.getInt("id"), resultado.getString("nombre"), resultado.getString("id_planta"));		            
+		            Ejemplar ejemplar = new Ejemplar(                
+		                resultado.getInt("id"),           
+		                resultado.getString("nombre"),
+		                resultado.getString("id_planta"));		            
 		            todos.add(ejemplar); 
 		        }
 		        conex.close();
@@ -89,6 +65,40 @@ import utils.ConexionBD;
 		    
 		    return todos;
 		}
+		public int contarEjemplares() {
+	        String consulta = "SELECT COUNT(*) FROM ejemplares";
+	        try (PreparedStatement ps = conex.prepareStatement(consulta);
+	             ResultSet rs = ps.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt(1);
+	            }
+	        } catch (SQLException e) {
+	            System.out.println("Error al contar los ejemplares: " + e.getMessage());
+	        }
+	        return 0;
+	    }
+
+
+		@Override
+		public Ejemplar buscarPorID(long id) {
+			Ejemplar ejemplar = null;
+	        String consulta = "SELECT * FROM ejemplares WHERE id = ?";
+	        try (PreparedStatement ps = conex.prepareStatement(consulta)) {
+	            ps.setLong(1, id);
+	            try (ResultSet rs = ps.executeQuery()) {
+	                if (rs.next()) {
+	                    ejemplar = new Ejemplar();
+	                    ejemplar.setId(rs.getLong("id"));
+	                    ejemplar.setNombre(rs.getString("nombre"));
+	                    ejemplar.setCodigoPlanta(rs.getString("codigoPlanta"));
+	                }
+	            }
+	        } catch (SQLException e) {
+	            System.err.println("Error al obtener el " + id + ": " + e.getMessage());
+	        }
+
+	        return ejemplar;
+		}
 
 
 		@Override
@@ -97,4 +107,19 @@ import utils.ConexionBD;
 			return false;
 		}
 
-	}
+
+		@Override
+		public boolean eliminar(Ejemplar elemento) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+
+
+
+		
+		
+		
+
+		
+}
