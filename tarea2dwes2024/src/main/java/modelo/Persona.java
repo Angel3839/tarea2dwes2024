@@ -1,27 +1,24 @@
 package modelo;
 
-import java.util.Objects;
-
 public class Persona {
-
-	private Long id;
+	private long id;
 	private String nombre;
 	private String email;
+	
 	
 	public Persona() {
 		
 	}
-	
-	public Persona(Long id, String nombre, String email) {
-		super();
+	public Persona(long id, String nombre, String email) {
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
+		
 	}
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getNombre() {
@@ -36,32 +33,17 @@ public class Persona {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(email, id, nombre);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Persona other = (Persona) obj;
-		return Objects.equals(email, other.email) && Objects.equals(id, other.id)
-				&& Objects.equals(nombre, other.nombre);
-	}
+	
+	
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", email=" + email + ", getId()=" + getId()
-				+ ", getNombre()=" + getNombre() + ", getEmail()=" + getEmail() + ", hashCode()=" + hashCode()
-				+ ", getClass()=" + getClass() + ", toString()=" + super.toString() + "]";
+		String ret = "";
+		ret += "Id: " + this.id;
+		ret += "\nNombre: " + this.nombre;
+		ret += "\nEmail: " + this.email;
+		return ret;
 	}
-
 	
 	
-	
-	
-	
+	//Añadir en la base de datos id=0 nombre=admin email=admin@vivero.es
 }

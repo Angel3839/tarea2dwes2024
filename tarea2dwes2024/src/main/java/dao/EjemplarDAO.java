@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 import modelo.Ejemplar;
 import modelo.Planta;
-import dao.ConexionBD;
+import utils.ConexionBD;
 
 	public class EjemplarDAO implements OperacionesCRUD<Ejemplar> {
 		Connection conex;

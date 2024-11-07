@@ -1,67 +1,78 @@
 package modelo;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
+import java.time.LocalDateTime;
 
 public class Mensaje {
-
-	private Long id;
-	private LocalDateTime fechahora;
-	private String nombrecientifico;
+	private long id;
+	private LocalDateTime fechaHora;
+	private String mensaje;
+	
+	private long idEjemplar;
+	private long idPersona;
 	
 	public Mensaje() {
 		
 	}
-	
-	public Mensaje(Long id, LocalDateTime fechahora, String nombrecientifico) {
-		super();
+
+	public Mensaje(long id, LocalDateTime fechaHora, String mensaje, long idEjemplar, long idPersona) {
 		this.id = id;
-		this.fechahora = fechahora;
-		this.nombrecientifico = nombrecientifico;
+		this.fechaHora = fechaHora;
+		this.mensaje = mensaje;
+		this.idEjemplar = idEjemplar;
+		this.idPersona = idPersona;
 	}
-	public Long getId() {
+
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+
+	public void setId(long id) {
 		this.id = id;
 	}
-	public LocalDateTime getFechahora() {
-		return fechahora;
+
+	public LocalDateTime getFechaHora() {
+		return fechaHora;
 	}
-	public void setFechahora(LocalDateTime fechahora) {
-		this.fechahora = fechahora;
+
+	public void setFechaHora(LocalDateTime fechaHora) {
+		this.fechaHora = fechaHora;
 	}
-	public String getNombrecientifico() {
-		return nombrecientifico;
+
+	public String getMensaje() {
+		return mensaje;
 	}
-	public void setNombrecientifico(String nombrecientifico) {
-		this.nombrecientifico = nombrecientifico;
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(fechahora, id, nombrecientifico);
+	
+	
+	public long getIdEjemplar() {
+		return idEjemplar;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Mensaje other = (Mensaje) obj;
-		return Objects.equals(fechahora, other.fechahora) && Objects.equals(id, other.id)
-				&& Objects.equals(nombrecientifico, other.nombrecientifico);
+
+	public void setIdEjemplar(long idEjemplar) {
+		this.idEjemplar = idEjemplar;
 	}
+
+	public long getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(long idPersona) {
+		this.idPersona = idPersona;
+	}
+
 	@Override
 	public String toString() {
-		return "Mensaje [id=" + id + ", fechahora=" + fechahora + ", nombrecientifico=" + nombrecientifico
-				+ ", getId()=" + getId() + ", getFechahora()=" + getFechahora() + ", getNombrecientifico()="
-				+ getNombrecientifico() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
-				+ super.toString() + "]";
+		String ret = "";
+		ret += "Id de mensaje: " + this.id;
+		ret += "\nFecha y hora: " + this.fechaHora;
+		ret += "\nMensaje: " + this.mensaje;
+		ret += "\nEjemplar: " + this.idEjemplar;
+		ret += "\nPersona: " + this.idPersona;
+		return ret;
 	}
-	
-	
 	
 	
 }

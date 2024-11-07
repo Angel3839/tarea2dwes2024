@@ -1,25 +1,22 @@
 package modelo;
 
-import java.util.Objects;
-
 public class Ejemplar {
-
-	private Long id;
+	private long id;
 	private String nombre;
+	private String codigoPlanta;
 	
 	public Ejemplar() {
 		
 	}
-	
-	public Ejemplar(Long id, String nombre) {
-		super();
+	public Ejemplar(long id, String nombre, String codigoPlanta) {
 		this.id = id;
 		this.nombre = nombre;
-	}
-	public Long getId() {
+		this.codigoPlanta = codigoPlanta;	}
+	
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getNombre() {
@@ -28,31 +25,23 @@ public class Ejemplar {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, nombre);
+	
+	public String getCodigoPlanta() {
+		return codigoPlanta;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Ejemplar other = (Ejemplar) obj;
-		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
+	public void setCodigoPlanta(String codigoPlanta) {
+		this.codigoPlanta = codigoPlanta;
 	}
 	@Override
 	public String toString() {
-		return "Ejemplar [id=" + id + ", nombre=" + nombre + ", getId()=" + getId() + ", getNombre()=" + getNombre()
-				+ ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()=" + super.toString()
-				+ "]";
+		String ret = "";
+		ret += "Id de ejemplar: " + this.id;
+		ret += "\nNombre de ejemplar: " + this.nombre;
+		ret += "\nCodigo de planta: " + this.codigoPlanta;
+		return ret;
 	}
 	
 	
 	
 	
-	
-
 }

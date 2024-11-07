@@ -4,12 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 import modelo.Planta;
-import dao.ConexionBD;
+import utils.ConexionBD;
 
 public class PlantaDAO implements OperacionesCRUD<Planta> {
 		Connection conex;
@@ -18,7 +18,6 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 
 
 		public PlantaDAO(Connection conex) {
-			if (this.conex == null)
 				this.conex = conex;
 		}
 
@@ -93,35 +92,69 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 		}
 		
 
-		@Override
-		public boolean modificar(Planta p) {
-		    String consulta = "UPDATE plantas SET nombrecomun = ?, nombrecientifico = ? WHERE codigo = ?";
-		    try {
-		        ps = conex.prepareStatement(consulta);
-		        ps.setString(1, p.getNombrecomun());
-		        ps.setString(2, p.getNombrecientifico());
-		        ps.setString(3, p.getCodigo()); 
-		        return ps.executeUpdate() > 0;
+		public boolean actualizarNombreComun(String codigo, String nombreComun) {
+		    String sql = "UPDATE plantas SET nombrecomun = ? WHERE codigo = ?";
+		    try (Connection connection = ConexionBD.getConexion(); 
+		         PreparedStatement ps = connection.prepareStatement(sql)) {
+		        ps.setString(1, nombreComun);
+		        ps.setString(2, codigo);
+		        int filas = ps.executeUpdate();
+		        return filas > 0;
 		    } catch (SQLException e) {
-		        System.out.println("Error al modificar planta: " + e.getMessage());
-		        e.printStackTrace();
+		        System.out.println("Error al modificar el nombre común: " + e.getMessage());
+		        return false;
 		    }
-		    return false;
+		}
+		public boolean actualizarNombreCientifico(String codigo, String nombreCientifico) {
+		    String sql = "UPDATE plantas SET nombrecientifico = ? WHERE codigo = ?";
+		    try (Connection connection = ConexionBD.getConexion(); 
+		         PreparedStatement ps = connection.prepareStatement(sql)) {
+		        ps.setString(1, nombreCientifico);
+		        ps.setString(2, codigo);
+		        int filas = ps.executeUpdate();
+		        return filas > 0; // 
+		    } catch (SQLException e) {
+		        System.out.println("Error al modificar el nombre común: " + e.getMessage());
+		        return false;
+		    }
+		}
+		public boolean codigoExistente(String codigo) {
+			String sqlString = "SELECT codigo FROM PLANTAS";
+			ArrayList<String> cod = new ArrayList<String>();
+			try {
+				ps = conex.prepareStatement(sqlString);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					cod.add(rs.getString(1));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			if (cod.contains(codigo.toUpperCase())) {
+				return true;
+			} else {
+				return false;
+			}
+
 		}
 
 
 		@Override
-		public boolean eliminar(Planta p) {
-		    String consulta = "DELETE FROM plantas WHERE codigo = ?";
-		    try {
-		        ps = conex.prepareStatement(consulta);
-		        ps.setString(1, p.getCodigo());
-		        return ps.executeUpdate() > 0;
-		    } catch (SQLException e) {
-		        System.out.println("Error al eliminar la planta: " + e.getMessage());
-		        e.printStackTrace();
-		    }
-		    return false;
+		public boolean modificar(Planta elemento) {
+			// TODO Auto-generated method stub
+			return false;
 		}
+
+
+		@Override
+		public boolean eliminar(Planta elemento) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+
+		
+
+		
 		
 }
