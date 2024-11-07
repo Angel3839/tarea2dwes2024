@@ -15,34 +15,40 @@ import dao.MensajeDAO;
 import dao.PersonaDAO;
 import dao.PlantaDAO;
 
-
 public class ConexionBD {
+
 	private static Connection con;
+	private static ConexionBD f;
+
+	public static ConexionBD getInstance() {
+		if (f == null)
+			f = new ConexionBD();
+		return f;
+	}
 
 	public static Connection getConexion() {
+		Properties prop = new Properties();
+		MysqlDataSource m = new MysqlDataSource();
+		FileInputStream fis;
 		try {
-			if (con == null || con.isClosed()) {
-				Properties propiedades = new Properties();
-				MysqlDataSource m = new MysqlDataSource();
-				FileInputStream fis;
-				fis = new FileInputStream("src/resources/db.properties");
-				propiedades.load(fis);
-				m.setUrl(propiedades.getProperty("url"));
-				m.setPassword(propiedades.getProperty("password"));
-				m.setUser(propiedades.getProperty("usuario"));
-				fis.close();
-				con = m.getConnection();
-			}
-			return con;
-		} catch (FileNotFoundException e) {
-			System.out.println("Error al acceder al fichero properties " + e.getMessage());
-		} catch (IOException e) {
-			System.out.println("Error al leer las propiedades del fichero properties" + e.getMessage());
+			fis = new FileInputStream("src/main/resources/db.properties");
+			prop.load(fis);
+
+			m.setUrl(prop.getProperty("url"));
+			m.setUser(prop.getProperty("usuario"));
+			m.setPassword(prop.getProperty("password"));
+			con = m.getConnection();
+
 		} catch (SQLException e) {
-			System.out.println("Se ha producido una SQLException: " + e.getMessage());
-		} catch (Exception e) {
-			System.out.println("Se ha producido una Exception: " + e.getMessage());
+			System.out.println("Ha ocurrido un error de SQLException" + e.getLocalizedMessage());
 			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.out.println("Ha ocurrido un error de FileNotFoundException " + e.getLocalizedMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Ha ocurrido un error de IOException " + e.getLocalizedMessage());
+			e.printStackTrace();
+
 		}
 		return con;
 	}
@@ -57,4 +63,25 @@ public class ConexionBD {
 			e.printStackTrace();
 		}
 	}
+
+	public PlantaDAO getPlantaDAO() {
+		return new PlantaDAO(con);
+	}
+
+	public EjemplarDAO getEjemplarDAO() {
+		return new EjemplarDAO(con);
+	}
+
+	public PersonaDAO getPersonaDAO() {
+		return new PersonaDAO(con);
+	}
+
+	public MensajeDAO getMensajeDAO() {
+		return new MensajeDAO(con);
+	}
+	public CredencialesDAO getCredencialesDAO() {
+		return new CredencialesDAO(con);
+	}
+
+	
 }
