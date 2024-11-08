@@ -107,6 +107,15 @@ public class PersonaDAO implements OperacionesCRUD<Persona> {
         return idPersona;
     }
 
+	public Persona buscarPorNombreUsuario(String nombreUsuario) {
+        
+        String query = "SELECT * FROM persona WHERE nombre_usuario = ?";
+   
+        Persona persona = new Persona();
+        persona.setId(123);
+        
+        return persona;
+    }
 
 	@Override
 	public boolean modificar(Persona elemento) {

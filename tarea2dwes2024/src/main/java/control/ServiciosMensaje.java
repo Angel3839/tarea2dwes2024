@@ -1,6 +1,7 @@
 package control;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import dao.MensajeDAO;
@@ -32,4 +33,28 @@ import utils.ConexionBD;
 		public Mensaje buscarPorID(long id) {
 			return mensajeDAO.buscarPorID(id);
 		}
+		
+		public boolean validarMensaje(String mensaje) {
+	        if (mensaje == null || mensaje.trim().isEmpty()) {
+	            return false;
+	        }
+	        
+	        if (!mensaje.matches("[a-zA-Z0-9 ]*")) {
+	            return false;
+	        }
+
+	        return true;
+	    }
+		
+		public ArrayList<Mensaje> verMensajesPorPersona(long idPersona) {
+	        ArrayList<Mensaje> mensajes = new ArrayList<>();
+	        
+	        return mensajes;
+	    }
+		
+		public ArrayList<Mensaje> verMensajesPorCodigoPlanta(String codigoPlanta) {
+	        ArrayList<Mensaje> mensajes = new ArrayList<>();
+	        
+	        return mensajes;
+	    }
 	}
