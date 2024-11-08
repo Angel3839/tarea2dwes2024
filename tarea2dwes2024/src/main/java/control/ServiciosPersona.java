@@ -40,4 +40,21 @@ public class ServiciosPersona {
             return -1;
         }
     }
+    
+    public boolean emailExistente(String email) {
+        return personaDAO.emailExistente(email);
+    }
+    
+    public boolean validarPersona(Persona pers) {
+        if (pers.getNombre() == null || pers.getNombre().isEmpty()) {
+            System.out.println("El nombre no puede estar vacío.");
+            return false;
+        }
+        if (pers.getEmail() == null || pers.getEmail().isEmpty()) {
+            System.out.println("El correo electrónico no puede estar vacío.");
+            return false;
+        }
+        
+        return true;
+    }
 }

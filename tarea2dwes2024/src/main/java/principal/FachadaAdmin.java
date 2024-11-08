@@ -272,8 +272,8 @@ public class FachadaAdmin {
                 String mensaje = "Añadido el ejemplar " + e.getNombre();
                 LocalDateTime fechaHora = LocalDateTime.now();
                 String usuarioAutenticado = controlador.getUsuarioAutenticado();
-                long idUsuario = controlador.getServiciosPersona().IdUsuarioAutenticado(usuarioAutenticado);
-                m = new Mensaje(fechaHora, mensaje, idEjemplar, idUsuario);
+                long idUsuario = controlador.getServiciosPersona().obtenerIdUsuarioAutenticado(usuarioAutenticado);
+                m = new Mensaje(0, fechaHora, mensaje, idEjemplar, idUsuario);
                 if (controlador.getServiciosMensaje().insertar(m) > 0) {
                     System.out.println("Mensaje añadido correctamente.");
                 } else {

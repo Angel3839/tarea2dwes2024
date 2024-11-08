@@ -66,8 +66,7 @@ public class PlantaDAO implements OperacionesCRUD<Planta> {
 
 		@Override
 		public Collection<Planta> verTodos() {
-		    HashSet<Planta> todas = new HashSet<>(); 
-		    String consulta = "SELECT * FROM plantas"; 
+			ArrayList<Planta> todas = new ArrayList<>();		    String consulta = "SELECT * FROM plantas"; 
 		    try {
 		        if (this.conex == null || this.conex.isClosed()) {
 		            this.conex = ConexionBD.getConexion();
